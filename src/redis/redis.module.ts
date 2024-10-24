@@ -11,7 +11,7 @@ import { RedisService } from './redis.service';
             provide: 'REDIS_CLIENT',
             useFactory: () => {
                 return new Redis({
-                    host: 'localhost',
+                    host: 'redis',
                     port: 6379,
                 });
             },
