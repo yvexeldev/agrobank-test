@@ -48,7 +48,7 @@ export class LocationService {
         if (!location) {
             throw new Error('Location not found');
         }
-        console.log({ location });
+
         if (location.events.length > 0) {
             throw new Error('Location has events! Please remove events first');
         }

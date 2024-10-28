@@ -31,7 +31,7 @@ export class UserService {
         );
 
         await this.mailService.sendOtpEmail(email, otp);
-        console.log({ dataRedis });
+
         return otp;
     }
 

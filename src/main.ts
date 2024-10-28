@@ -14,8 +14,6 @@ async function bootstrap() {
         }),
     );
 
-    console.log(process.argv['NODE_ENV']);
-
     await app.listen(PORT).then(() => {
         console.log(`Server started on port ${PORT}`);
     });

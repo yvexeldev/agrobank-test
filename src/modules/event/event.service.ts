@@ -104,9 +104,6 @@ export class EventService {
             relations: ['location'],
         });
 
-        console.log(updateEventInput);
-        console.log({ event });
-
         if (!event) {
             throw new Error('Event not found');
         }

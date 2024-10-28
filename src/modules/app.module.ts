@@ -50,5 +50,3 @@ import { BullModule } from '@nestjs/bull';
     ],
 })
 export class AppModule {}
-
-console.log(process.env.NODE_ENV);
