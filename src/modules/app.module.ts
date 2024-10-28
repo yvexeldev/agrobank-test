@@ -18,6 +18,10 @@ import { BullModule } from '@nestjs/bull';
         }),
         ConfigModule.forRoot({
             isGlobal: true,
+            envFilePath:
+                process.env.NODE_ENV === 'production'
+                    ? '.env'
+                    : '.development.env',
         }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
@@ -46,3 +50,5 @@ import { BullModule } from '@nestjs/bull';
     ],
 })
 export class AppModule {}
+
+console.log(process.env.NODE_ENV);
