@@ -30,7 +30,10 @@ export class CreateEventInput {
     @IsDateString({}, { message: 'End date must be a valid ISO date string' })
     endDate: string;
 
-    @Field(() => Int, { description: 'ID of the location for the event' })
+    @Field(() => Int, {
+        description: 'ID of the location for the event',
+        nullable: true,
+    })
     @IsOptional()
     @IsInt({ message: 'Location ID must be an integer' })
     @Min(1, { message: 'Location ID must be a positive integer' })
