@@ -4,11 +4,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
-import { EventModule } from './event/event.module';
-import { LocationModule } from './location/location.module';
-import { RedisModule } from '../utils/service/redis/redis.module';
 import { BullModule } from '@nestjs/bull';
+import { IndexModule } from './modules/index.module';
 
 @Module({
     imports: [
@@ -43,10 +40,7 @@ import { BullModule } from '@nestjs/bull';
                 port: 6379,
             },
         }),
-        RedisModule,
-        UserModule,
-        EventModule,
-        LocationModule,
+        IndexModule,
     ],
 })
 export class AppModule {}
