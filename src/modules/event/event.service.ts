@@ -31,7 +31,10 @@ export class EventService {
     ): Promise<Event> {
         const { location_id, ...eventData } = createEventInput;
 
-        await this.checkLocation(location_id);
+        if (location_id) {
+            await this.checkLocation(location_id);
+        }
+
         const event = this.eventRepository.create({
             ...eventData,
             location: { id: location_id },
