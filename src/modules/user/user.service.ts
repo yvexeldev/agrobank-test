@@ -24,11 +24,7 @@ export class UserService {
 
     async generateAndSendOtp(userId: number, email: string): Promise<string> {
         const otp = randomInt(100000, 999999).toString();
-        const dataRedis = await this.redisService.set(
-            `user-${userId}`,
-            otp,
-            300,
-        );
+        await this.redisService.set(`user-${userId}`, otp, 300);
 
         await this.mailService.sendOtpEmail(email, otp);
 
