@@ -7,6 +7,7 @@ import {
 import { Server } from 'socket.io';
 import { EventService } from './event.service';
 import { Event } from './entities/event.entity';
+import { Inject, forwardRef } from '@nestjs/common';
 
 @WebSocketGateway({
     cors: {
@@ -17,7 +18,11 @@ export class EventsGateway {
     @WebSocketServer()
     server: Server;
 
-    constructor(private readonly eventService: EventService) {}
+    constructor(
+        @Inject(forwardRef(() => EventService))
+        private readonly eventService: EventService,
+    ) {}
+
     @SubscribeMessage('events')
     async findAll(): Promise<Event[]> {
         const events = await this.eventService.findAllWithoutAuth();

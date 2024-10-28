@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { CreateEventInput } from './dto/create-event.input';
 import { UpdateEventInput } from './dto/update-event.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +6,7 @@ import { Event } from './entities/event.entity';
 import { Location } from 'src/modules/location/entities/location.entity';
 import { Repository } from 'typeorm';
 import { FilterEventInput } from './dto/filter-event.input';
+import { EventsGateway } from './event.gateway';
 
 @Injectable()
 export class EventService {
@@ -14,6 +15,8 @@ export class EventService {
         private readonly eventRepository: Repository<Event>,
         @InjectRepository(Location)
         private readonly locationRepository: Repository<Location>,
+        @Inject(forwardRef(() => EventsGateway))
+        private readonly eventsGateway: EventsGateway,
     ) {}
 
     private async checkLocation(location_id: number) {
@@ -25,6 +28,12 @@ export class EventService {
         }
         return location;
     }
+
+    private async emitEventsUpdate() {
+        const events = await this.findAllWithoutAuth();
+        this.eventsGateway.server.emit('events', events);
+    }
+
     async create(
         user_id: number,
         createEventInput: CreateEventInput,
@@ -41,7 +50,10 @@ export class EventService {
             user: { id: user_id },
         });
 
-        return await this.eventRepository.save(event);
+        const savedEvent = await this.eventRepository.save(event);
+        await this.emitEventsUpdate();
+
+        return savedEvent;
     }
 
     async findAllWithoutAuth(filters?: FilterEventInput): Promise<Event[]> {
@@ -123,7 +135,11 @@ export class EventService {
 
         Object.assign(event, updateEventInput);
 
-        return await this.eventRepository.save(event);
+        const updatedEvent = await this.eventRepository.save(event);
+
+        await this.emitEventsUpdate();
+
+        return updatedEvent;
     }
 
     async remove(id: number): Promise<Event> {
@@ -132,6 +148,9 @@ export class EventService {
             throw new Error('Event not found');
         }
         await this.eventRepository.delete(id);
+
+        await this.emitEventsUpdate();
+
         return event;
     }
 }
