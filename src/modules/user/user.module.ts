@@ -5,8 +5,8 @@ import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MailService } from '../../common/mail/mail.service';
-import { RedisModule } from 'src/common/redis/redis.module';
+import { MailService } from '../../utils/service/mail/mail.service';
+import { RedisModule } from 'src/utils/service/redis/redis.module';
 import { BullModule } from '@nestjs/bull';
 import { UserProcessor } from './user.processor';
 
