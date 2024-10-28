@@ -1,10 +1,9 @@
-// redis.module.ts
 import { Module, Global } from '@nestjs/common';
 
 import { Redis } from 'ioredis';
 import { RedisService } from './redis.service';
 
-@Global() // Make it available globally
+@Global()
 @Module({
     providers: [
         {

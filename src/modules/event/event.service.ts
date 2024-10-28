@@ -97,19 +97,28 @@ export class EventService {
     }
 
     async update(updateEventInput: UpdateEventInput): Promise<Event> {
-        const { id } = updateEventInput;
+        const { id, location_id } = updateEventInput;
+
         const event = await this.eventRepository.findOne({
             where: { id },
             relations: ['location'],
         });
+
         console.log(updateEventInput);
         console.log({ event });
 
         if (!event) {
             throw new Error('Event not found');
         }
-        if (updateEventInput.location_id) {
-            await this.checkLocation(updateEventInput.location_id);
+
+        if (location_id) {
+            const location = await this.locationRepository.findOne({
+                where: { id: location_id },
+            });
+            if (!location) {
+                throw new Error('Location not found');
+            }
+            event.location = location;
         }
 
         Object.assign(event, updateEventInput);
