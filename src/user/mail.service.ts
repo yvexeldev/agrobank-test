@@ -20,10 +20,9 @@ export class MailService {
 
     async sendOtpEmail(to: string, otp: string): Promise<void> {
         const mailOptions = {
-            from: '"Your Service" <your-email@example.com>',
+            from: process.env.GOOGLE_SMPT_USERNAME,
             to,
             subject: 'Your OTP Code',
-            // text: `Your OTP code is: ${otp}`,
             html: `<b>Your OTP code is: ${otp}</b>`,
         };
 

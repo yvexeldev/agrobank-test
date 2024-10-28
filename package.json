@@ -37,6 +37,8 @@
         "bcryptjs": "^2.4.3",
         "bull": "^4.16.3",
         "cache-manager": "^5.7.6",
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.1",
         "graphql": "^16.9.0",
         "ioredis": "^5.4.1",
         "nodemailer": "^6.9.15",
