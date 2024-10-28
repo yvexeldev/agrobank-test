@@ -36,11 +36,18 @@ export class EventResolver {
         return await this.eventService.findOne(id);
     }
 
+    @Query(() => [Event], { name: 'eventsWithoutAuth', nullable: true })
+    async getAllWithoutAuth(
+        @Args('filters', { nullable: true }) filters?: FilterEventInput,
+    ) {
+        return await this.eventService.findAllWithoutAuth(filters);
+    }
+
     @Mutation(() => Event, { nullable: true })
     async updateEvent(
         @Args('updateEventInput') updateEventInput: UpdateEventInput,
     ) {
-        return this.eventService.update(updateEventInput.id, updateEventInput);
+        return this.eventService.update(updateEventInput);
     }
 
     @Mutation(() => Event, { nullable: true })
