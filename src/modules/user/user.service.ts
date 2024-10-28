@@ -8,8 +8,8 @@ import * as bcrypt from 'bcryptjs';
 import { LoginUserInput } from './dto/login-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { ChangePasswordInput } from './dto/change-password.input';
-import { RedisService } from 'src/redis/redis.service';
-import { MailService } from './mail.service';
+import { RedisService } from 'src/common/redis/redis.service';
+import { MailService } from '../../common/mail/mail.service';
 import { randomInt } from 'crypto';
 
 @Injectable()

@@ -5,7 +5,7 @@ import { UpdateEventInput } from './dto/update-event.input';
 import { Event } from './entities/event.entity';
 import { FilterEventInput } from './dto/filter-event.input';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/user/user.guard';
+import { JwtAuthGuard } from 'src/common/guard/auth.guard';
 
 @Resolver(() => Event)
 export class EventResolver {

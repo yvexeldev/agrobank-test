@@ -1,5 +1,5 @@
 import { Field, ObjectType, Int } from '@nestjs/graphql';
-import { Event } from 'src/event/entities/event.entity';
+import { Event } from 'src/modules/event/entities/event.entity';
 import {
     Entity,
     PrimaryGeneratedColumn,

@@ -1,8 +1,14 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { IsOptional, IsString } from 'class-validator';
+import { InputType, Field, Int } from '@nestjs/graphql';
+import { IsInt, IsNotEmpty, IsOptional, IsString, Min } from 'class-validator';
 
 @InputType()
 export class UpdateLocationInput {
+    @Field(() => Int, { description: 'ID of the location to be updated' })
+    @IsNotEmpty({ message: 'Location ID is required' })
+    @IsInt({ message: 'Location ID must be an integer' })
+    @Min(1, { message: 'Location ID must be a positive integer' })
+    id: number;
+
     @Field(() => String, {
         description: 'Title of the location',
         nullable: true,

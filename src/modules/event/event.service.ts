@@ -3,7 +3,7 @@ import { CreateEventInput } from './dto/create-event.input';
 import { UpdateEventInput } from './dto/update-event.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from './entities/event.entity';
-import { Location } from 'src/location/entities/location.entity';
+import { Location } from 'src/modules/location/entities/location.entity';
 import { Repository } from 'typeorm';
 import { FilterEventInput } from './dto/filter-event.input';
 

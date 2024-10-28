@@ -5,7 +5,7 @@ import { RegisterUserInput } from './dto/register-user.input';
 import { LoginUserInput } from './dto/login-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from './user.guard';
+import { JwtAuthGuard } from '../../common/guard/auth.guard';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 

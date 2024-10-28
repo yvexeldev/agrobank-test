@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { EventModule } from './event/event.module';
 import { LocationModule } from './location/location.module';
-import { RedisModule } from './redis/redis.module';
+import { RedisModule } from '../common/redis/redis.module';
 import { BullModule } from '@nestjs/bull';
 
 @Module({

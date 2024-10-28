@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Event } from 'src/event/entities/event.entity';
+import { Event } from 'src/modules/event/entities/event.entity';
 
 @Entity('location')
 @ObjectType()

@@ -8,8 +8,8 @@ import {
     UpdateDateColumn,
     CreateDateColumn,
 } from 'typeorm';
-import { Location } from 'src/location/entities/location.entity';
-import { User } from 'src/user/entities/user.entity';
+import { Location } from 'src/modules/location/entities/location.entity';
+import { User } from 'src/modules/user/entities/user.entity';
 
 @Entity('event')
 @ObjectType()
