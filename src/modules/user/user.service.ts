@@ -31,7 +31,13 @@ export class UserService {
         return otp;
     }
 
-    async register(registerUserInput: RegisterUserInput): Promise<string> {
+    async generateOtp(userId: number): Promise<string> {
+        const otp = randomInt(100000, 999999).toString();
+        await this.redisService.set(`user-${userId}`, otp, 300);
+        return otp;
+    }
+
+    async register(registerUserInput: RegisterUserInput): Promise<number> {
         const { name, email, password } = registerUserInput;
 
         const existingUser = await this.userRepository.findOne({
@@ -51,8 +57,8 @@ export class UserService {
         });
 
         await this.userRepository.save(user);
-        await this.generateAndSendOtp(user.id, email);
-        return 'OTP CODE has sent to your email! Your user id is: ' + user.id;
+        await this.generateOtp(user.id);
+        return user.id;
     }
 
     async login(
@@ -121,8 +127,7 @@ export class UserService {
         if (!isPasswordValid) {
             throw new Error('Invalid current password');
         }
-        const hashedPassword = await bcrypt.hash(new_password, 10);
-        user.password = hashedPassword;
+        user.password = await bcrypt.hash(new_password, 10);
         return await this.userRepository.save(user);
     }
 
@@ -143,10 +148,9 @@ export class UserService {
         });
         await this.redisService.del(`user-${user.id}`);
 
-        const access_token = this.jwtService.sign({
+        return this.jwtService.sign({
             username: user.name,
             sub: user.id,
         });
-        return access_token;
     }
 }

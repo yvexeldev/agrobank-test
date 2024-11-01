@@ -33,8 +33,10 @@ export class UserResolver {
     async registerUser(
         @Args('registerUserInput') registerUserInput: RegisterUserInput,
     ) {
-        await this.mailQueue.add('send-otp', { registerUserInput });
-        return await this.userService.register(registerUserInput);
+        const userId = await this.userService.register(registerUserInput);
+        await this.mailQueue.add('send-otp', { userId, email: registerUserInput.email });
+
+        return 'OTP CODE has sent to your email! Your user id is: ' + userId;
     }
 
     @Mutation(() => String, { name: 'login' })
