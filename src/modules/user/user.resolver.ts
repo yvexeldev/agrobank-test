@@ -34,7 +34,10 @@ export class UserResolver {
         @Args('registerUserInput') registerUserInput: RegisterUserInput,
     ) {
         const userId = await this.userService.register(registerUserInput);
-        await this.mailQueue.add('send-otp', { userId, email: registerUserInput.email });
+        await this.mailQueue.add('send-otp', {
+            userId,
+            email: registerUserInput.email,
+        });
 
         return 'OTP CODE has sent to your email! Your user id is: ' + userId;
     }
